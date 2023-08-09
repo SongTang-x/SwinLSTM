@@ -1,13 +1,13 @@
 # SwinLSTM: A new recurrent cell for spatiotemporal modeling
 
-This repository contains the official PyTorch implementation of the following paper:
+**This repository contains the official PyTorch implementation of the following paper:**
 
-**SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM  (ICCV 2023 Oral)**<br>
+**SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM  (ICCV 2023 Oral)**
 
-Paper: <br>
+**Paper:**
 
 ## Introduction
-<div align="center"><img width="98%" src="main/architecture.PNG" /></div>
+<div align="center"><img width="98%" src="SwinLSTM/architecture.PNG" /></div>
 Integrating CNNs and RNNs to capture spatiotemporal dependencies is a prevalent strategy for spatiotemporal prediction tasks. However, the property of CNNs to learn local spatial information decreases their efficiency in capturing spatiotemporal dependencies, thereby limiting their prediction accuracy. In this paper, we propose a new recurrent cell, SwinLSTM, which integrates Swin Transformer blocks and the simplified LSTM, an extension that replaces the convolutional structure in ConvLSTM with the self-attention mechanism. Furthermore, we construct a network with SwinLSTM cell as the core for spatiotemporal prediction. Without using unique tricks, SwinLSTM outperforms state-of-the-art methods on Human3.6m, TaxiBJ, KTH, and Moving MNIST datasets. In particular, it exhibits a significant improvement in prediction accuracy compared to ConvLSTM. We hope that SwinLSTM can serve as a solid baseline to promote the advancement of spatiotemporal prediction accuracy.
 
 ## Requirements

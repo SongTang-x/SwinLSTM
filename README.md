@@ -1,10 +1,10 @@
 # SwinLSTM: A new recurrent cell for spatiotemporal modeling
 
-**This repository contains the official PyTorch implementation of the following paper:**
+This repository contains the official PyTorch implementation of the following paper:
 
-**SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM  (ICCV 2023 Oral)**
+SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM  **(ICCV 2023 Oral)**
 
-**Paper:**
+Paper:
 
 
 
@@ -45,8 +45,5 @@ If you find this work useful in your research, please cite the paper:
 ```
 
 ## Acknowledgment
-
-
-## License
-
+These codes are based on [Swin Transformer](https://github.com/microsoft/Swin-Transformer). We extend our sincere appreciation for their valuable contributions.
 

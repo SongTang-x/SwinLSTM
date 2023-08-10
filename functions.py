@@ -38,12 +38,10 @@ def model_forward_multi_layer(model, inputs, targets_len, num_layers):
 
     for i in range(inputs_len - 1):
         output, states_down, states_up = model(inputs[:, i], states_down, states_up)
-        print(torch.sum(inputs[:, i]), torch.sum(output))
         outputs.append(output)
 
     for i in range(targets_len):
         output, states_down, states_up = model(last_input, states_down, states_up)
-        print(torch.sum(last_input), torch.sum(output))
         outputs.append(output)
         last_input = output
 

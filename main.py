@@ -69,7 +69,7 @@ def main():
 
             logger.info(f'[Current Best] EP:{epoch:04d} MSE:{mse:.4f} SSIM:{ssim:.4f}')
 
-    print(f'Time usage per epoch: {time.time() - start_time}')
+        print(f'Time usage per epoch: {time.time() - start_time}')
 
 
 if __name__ == '__main__':

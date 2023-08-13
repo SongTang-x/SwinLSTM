@@ -8,7 +8,7 @@ from torch.utils.data import Dataset
 
 class Moving_MNIST(Dataset):
 
-    def __init__(self, args):
+    def __init__(self, args, split):
 
         super(Moving_MNIST, self).__init__()
 
@@ -16,7 +16,10 @@ class Moving_MNIST(Dataset):
             self.datas = np.frombuffer(f.read(), np.uint8, offset=16)
             self.datas = self.datas.reshape(-1, *args.image_size)
 
-        self.datas = self.datas[0: args.train_samples]
+        if split == 'train':
+            self.datas = self.datas[args.train_samples[0]: args.train_samples[1]]
+        else:
+            self.datas = self.datas[args.valid_samples[0]: args.valid_samples[1]]
 
         self.image_size = args.image_size
         self.input_size = args.input_size
@@ -27,7 +30,7 @@ class Moving_MNIST(Dataset):
         self.num_frames_output = args.num_frames_output
         self.num_frames_total = args.num_frames_input + args.num_frames_output
 
-        print('Loaded {} {} samples'.format(self.__len__(), 'train'))
+        print('Loaded {} {} samples'.format(self.__len__(), split))
 
     def _get_random_trajectory(self, seq_length):
 
@@ -89,16 +92,12 @@ class Moving_MNIST(Dataset):
     def __getitem__(self, item):
 
         num_digits = random.choice(self.num_objects)
-
         images = self._generate_moving_mnist(num_digits)
 
         inputs = torch.from_numpy(images[:self.num_frames_input]).permute(0, 3, 1, 2).contiguous()
         targets = torch.from_numpy(images[self.num_frames_output:]).permute(0, 3, 1, 2).contiguous()
 
-        inputs /= 255.
-        targets /= 255.
-
-        return inputs, targets
+        return inputs / 255., targets / 255.
 
     def __len__(self):
         return self.datas.shape[0]
@@ -108,34 +107,23 @@ class Moving_MNIST_Test(Dataset):
     def __init__(self, args):
         super(Moving_MNIST_Test, self).__init__()
 
-        self.data_file = args.test_data_dir
-
         self.num_frames_input = args.num_frames_input
         self.num_frames_output = args.num_frames_output
         self.num_frames_total = args.num_frames_input + args.num_frames_output
 
-        self.data_list = os.listdir(self.data_file)
-        self.samples_list = []
-
-        for data in self.data_list:
-            data_path = os.path.join(self.data_file, data)
-            self.samples_list.append(data_path)
-
-        print('Loaded {} {} samples '.format(self.__len__(), 'test'))
-
-    def _get_data(self, index):
-        data_ptah = self.samples_list[index]
-        images = np.fromfile(data_ptah, dtype='f').reshape(self.num_frames_total, 1, 64, 64)
-
-        return images
-
+        self.dataset = np.load(args.test_data_dir)
+        self.dataset = self.dataset[..., np.newaxis]
+        
+        print('Loaded {} {} samples'.format(self.__len__(), 'test'))
+        
     def __getitem__(self, index):
-        images = self._get_data(index)
+        images =  self.dataset[:, index, ...]
 
-        inputs = torch.from_numpy(images[:self.num_frames_input]).contiguous()
-        targets = torch.from_numpy(images[self.num_frames_output:]).contiguous()
+        inputs = torch.from_numpy(images[:self.num_frames_input]).permute(0, 3, 1, 2).contiguous()
+        targets = torch.from_numpy(images[self.num_frames_output:]).permute(0, 3, 1, 2).contiguous()
 
-        return inputs, targets
+        return inputs / 255., targets / 255.
 
     def __len__(self):
-        return len(self.samples_list)
+        return len(self.dataset[1])
+        

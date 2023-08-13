@@ -12,6 +12,7 @@ def model_forward_single_layer(model, inputs, targets_len, num_layers):
     states = [None] * len(num_layers)
 
     inputs_len = inputs.shape[1]
+    
     last_input = inputs[:, -1]
 
     for i in range(inputs_len - 1):
@@ -76,8 +77,8 @@ def train(args, logger, epoch, model, train_loader, criterion, optimizer):
 
         losses.append(loss.item())
 
-        if batch_idx % args.log_train == 0:
-            logger.info(f'[Train] EP:{epoch:04d} BI:{batch_idx:03d}/{num_batches:03d} Loss:{np.mean(losses):.6f}')
+        if batch_idx and batch_idx % args.log_train == 0:
+            logger.info(f'EP:{epoch:04d} BI:{batch_idx:03d}/{num_batches:03d} Loss:{np.mean(losses):.6f}')
 
     return np.mean(losses)
 
@@ -112,9 +113,9 @@ def test(args, logger, epoch, model, test_loader, criterion, cache_dir):
             mses.append(mse)
             ssims.append(ssim)
 
-            if batch_idx % args.log_test == 0:
+            if batch_idx and batch_idx % args.log_valid == 0:
                 logger.info(
-                    f'[Test] EP:{epoch:04d} BI:{batch_idx:03d}/{num_batches:03d} Loss:{np.mean(losses):.6f} MSE:{mse:.4f} SSIM:{ssim:.4f}')
+                    f'EP:{epoch:04d} BI:{batch_idx:03d}/{num_batches:03d} Loss:{np.mean(losses):.6f} MSE:{mse:.4f} SSIM:{ssim:.4f}')
                 visualize(inputs, targets, outputs, epoch, batch_idx, cache_dir)
 
     return np.mean(losses), np.mean(mses), np.mean(ssims)

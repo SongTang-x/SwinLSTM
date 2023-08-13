@@ -20,6 +20,7 @@ if __name__ == '__main__':
                      num_heads=args.heads_number, window_size=args.window_size).to(args.device)
 
     criterion = nn.MSELoss()
+    
     test_dataset = Moving_MNIST_Test(args)
     test_loader = DataLoader(test_dataset, batch_size=args.test_batch_size,
                              num_workers=args.num_workers, shuffle=False, pin_memory=True, drop_last=True)
@@ -31,5 +32,5 @@ if __name__ == '__main__':
     _, mse, ssim = test(args, logger, 0, model, test_loader, criterion, cache_dir)
 
     print(f'[Metrics]  MSE:{mse:.4f} SSIM:{ssim:.4f}')
-    print(f'Time usage per epoch: {time.time() - start_time}')
+    print(f'Time usage per epoch: {time.time() - start_time:.0f}s')
 

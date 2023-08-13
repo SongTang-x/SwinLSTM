@@ -35,6 +35,7 @@ def plot_loss(loss_records, loss_type, epoch, plot_dir, step):
 
 def MAE(pred, true):
     return np.mean(np.abs(pred - true), axis=(0, 1)).sum()
+    
 def MSE(pred, true):
     return np.mean((pred - true) ** 2, axis=(0, 1)).sum()
 
@@ -52,11 +53,12 @@ def compute_metrics(predictions, targets):
     Seq_len = predictions.shape[1]
 
     ssim = 0
-
+    data_range = 1
     for batch in range(batch_size):
         for frame in range(Seq_len):
             ssim += structural_similarity(targets[batch, frame].squeeze(),
-                                          predictions[batch, frame].squeeze())
+                                          predictions[batch, frame].squeeze(),
+                                          data_range=data_range)
 
     ssim /= (batch_size * Seq_len)
 

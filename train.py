@@ -3,7 +3,7 @@ import torch.nn as nn
 from configs import get_args
 from functions import train, test
 from torch.utils.data import DataLoader
-from dataset import Moving_MNIST, Moving_MNIST_Test
+from dataset import Moving_MNIST
 
 
 def setup(args):
@@ -26,17 +26,16 @@ def setup(args):
 
     criterion = nn.MSELoss()
 
-    train_dataset = Moving_MNIST(args)
-    test_dataset = Moving_MNIST_Test(args)
+    train_dataset = Moving_MNIST(args, split='train')
+    valid_dataset = Moving_MNIST(args, split='valid')
 
     train_loader = DataLoader(train_dataset, batch_size=args.train_batch_size,
                               num_workers=args.num_workers, shuffle=True, pin_memory=True, drop_last=True)
 
-    test_loader = DataLoader(test_dataset, batch_size=args.test_batch_size,
+    valid_loader = DataLoader(valid_dataset, batch_size=args.valid_batch_size,
                              num_workers=args.num_workers, shuffle=False, pin_memory=True, drop_last=True)
 
-    return model, criterion, optimizer, train_loader, test_loader
-
+    return model, criterion, optimizer, train_loader, valid_loader
 
 def main():
     args = get_args()
@@ -44,9 +43,9 @@ def main():
     cache_dir, model_dir, log_dir = make_dir(args)
     logger = init_logger(log_dir)
 
-    model, criterion, optimizer, train_loader, test_loader = setup(args)
+    model, criterion, optimizer, train_loader, valid_loader = setup(args)
 
-    train_losses, test_losses = [], []
+    train_losses, valid_losses = [], []
     best_metric = (float('inf'), 0.)
 
     for epoch in range(args.epochs):
@@ -56,12 +55,12 @@ def main():
         train_losses.append(train_loss)
         plot_loss(train_losses, 'train', epoch, args.res_dir, 1)
 
-        if (epoch + 1) % args.epoch_test == 0:
+        if (epoch + 1) % args.epoch_valid == 0:
 
-            test_loss, mse, ssim = test(args, logger, epoch, model, test_loader, criterion, cache_dir)
+            valid_loss, mse, ssim = test(args, logger, epoch, model, valid_loader, criterion, cache_dir)
 
-            test_losses.append(test_loss)
-            plot_loss(test_losses, 'test', epoch, args.res_dir, args.epoch_test)
+            valid_losses.append(valid_loss)
+            plot_loss(valid_losses, 'valid', epoch, args.res_dir, args.epoch_valid)
 
             if mse < best_metric[0]:
                 torch.save(model.state_dict(), f'{model_dir}/trained_model_state_dict')

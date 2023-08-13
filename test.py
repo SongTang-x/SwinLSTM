@@ -25,7 +25,7 @@ if __name__ == '__main__':
     test_loader = DataLoader(test_dataset, batch_size=args.test_batch_size,
                              num_workers=args.num_workers, shuffle=False, pin_memory=True, drop_last=True)
 
-    model.load_state_dict(torch.load('./Pretrained/trained_model_state_dict_MMNIST'))
+    model.load_state_dict(torch.load('./Pretrained/trained_model_state_dict'))
 
     start_time = time.time()
 

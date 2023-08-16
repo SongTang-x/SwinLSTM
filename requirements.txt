@@ -1,7 +1,7 @@
-torch
-torchvision
+torch==1.11.0
+torchvision==0.12.0
 numpy
 matplotlib
-skimage
-timm
-einops
+skimage==0.19.2
+timm==0.4.12
+einops==0.4.1

@@ -53,12 +53,11 @@ def compute_metrics(predictions, targets):
     Seq_len = predictions.shape[1]
 
     ssim = 0
-    data_range = 1
+
     for batch in range(batch_size):
         for frame in range(Seq_len):
             ssim += structural_similarity(targets[batch, frame].squeeze(),
-                                          predictions[batch, frame].squeeze(),
-                                          data_range=data_range)
+                                          predictions[batch, frame].squeeze())
 
     ssim /= (batch_size * Seq_len)
 

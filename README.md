@@ -2,7 +2,7 @@
 
 This repository contains the official PyTorch implementation of the following paper:
 
-SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM  **(ICCV 2023 Oral)**
+SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM  **(ICCV 2023)**
 
 Paper:
 
@@ -15,23 +15,23 @@ Integrating CNNs and RNNs to capture spatiotemporal dependencies is a prevalent 
 
 ## Overview
 - `Pretrained/` contains pretrained weights on MovingMNIST.
-- `data/` contains the MNIST dataset and the compressed MovingMNIST test set.
+- `data/` contains the MNIST dataset and the MovingMNIST test set download link.
 - `SwinLSTM_B.py` contains the model with a single SwinLSTM cell.
 - `SwinLSTM_D.py` contains the model with a multiple SwinLSTM cell.
-- `dataset.py` contains training and testing dataloaders.
-- `functions.py` contains training and testing functions.
-- `main.py` is the core file for training and testing pipeline.
+- `dataset.py` contains training and validation dataloaders.
+- `functions.py` contains train and test functions.
+- `train.py` is the core file for training pipeline.
 - `test.py` is a file for a quick test.
 
 ## Requirements
-- python >=3.8
-- torch
-- torchvision
+- python >= 3.8
+- torch == 1.11.0
+- torchvision == 0.12.0
 - numpy
 - matplotlib
-- skimage
-- timm
-- einops
+- skimage == 0.19.2
+- timm == 0.4.12
+- einops == 0.4.1
 
 ## Citation
 If you find this work useful in your research, please cite the paper:

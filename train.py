@@ -46,7 +46,8 @@ def main():
     model, criterion, optimizer, train_loader, valid_loader = setup(args)
 
     train_losses, valid_losses = [], []
-    best_metric = (float('inf'), 0.)
+    
+    best_metric = (0, float('inf'), float('inf'))
 
     for epoch in range(args.epochs):
 
@@ -60,16 +61,16 @@ def main():
             valid_loss, mse, ssim = test(args, logger, epoch, model, valid_loader, criterion, cache_dir)
 
             valid_losses.append(valid_loss)
+            
             plot_loss(valid_losses, 'valid', epoch, args.res_dir, args.epoch_valid)
 
-            if mse < best_metric[0]:
+            if mse < best_metric[1]:
                 torch.save(model.state_dict(), f'{model_dir}/trained_model_state_dict')
-                best_metric = (mse, ssim)
+                best_metric = (epoch, mse, ssim)
 
-            logger.info(f'[Current Best] EP:{epoch:04d} MSE:{mse:.4f} SSIM:{ssim:.4f}')
+            logger.info(f'[Current Best] EP:{best_metric[0]:04d} MSE:{best_metric[1]:.4f} SSIM:{best_metric[2]:.4f}')
 
         print(f'Time usage per epoch: {time.time() - start_time:.0f}s')
-
 
 if __name__ == '__main__':
     main()

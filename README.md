@@ -4,7 +4,7 @@ This repository contains the official PyTorch implementation of the following pa
 
 SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM  **(ICCV 2023)**
 
-Paper:
+Paper:http://arxiv.org/abs/2308.09891
 
 
 
@@ -33,7 +33,7 @@ Integrating CNNs and RNNs to capture spatiotemporal dependencies is a prevalent 
 - timm == 0.4.12
 - einops == 0.4.1
 
-## Citation
+<!--## Citation
 If you find this work useful in your research, please cite the paper:
 ```
 @inproceedings{lee2021video,
@@ -42,7 +42,7 @@ If you find this work useful in your research, please cite the paper:
   booktitle={Journal},
   year={2022}
 }
-```
+``` -->
 
 ## Acknowledgment
 These codes are based on [Swin Transformer](https://github.com/microsoft/Swin-Transformer). We extend our sincere appreciation for their valuable contributions.

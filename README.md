@@ -33,16 +33,17 @@ Integrating CNNs and RNNs to capture spatiotemporal dependencies is a prevalent 
 - timm == 0.4.12
 - einops == 0.4.1
 
-<!--## Citation
+## Citation
 If you find this work useful in your research, please cite the paper:
 ```
-@inproceedings{lee2021video,
-  title={Title},
-  author={Author 1 and Author 2},
-  booktitle={Journal},
-  year={2022}
+@article{tang2023swinlstm,
+  title={SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM},
+  author={Tang, Song and Li, Chuang and Zhang, Pu and Tang, RongNian},
+  journal={arXiv preprint arXiv:2308.09891},
+  year={2023}
 }
-``` -->
+
+```
 
 ## Acknowledgment
 These codes are based on [Swin Transformer](https://github.com/microsoft/Swin-Transformer). We extend our sincere appreciation for their valuable contributions.

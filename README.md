@@ -36,10 +36,11 @@ Integrating CNNs and RNNs to capture spatiotemporal dependencies is a prevalent 
 ## Citation
 If you find this work useful in your research, please cite the paper:
 ```
-@article{tang2023swinlstm,
+@inproceedings{tang2023swinlstm,
   title={SwinLSTM: Improving Spatiotemporal Prediction Accuracy using Swin Transformer and LSTM},
   author={Tang, Song and Li, Chuang and Zhang, Pu and Tang, RongNian},
-  journal={arXiv preprint arXiv:2308.09891},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={13470--13479},
   year={2023}
 }
 
